@@ -19,11 +19,12 @@ const store = new Store() as Store & IStoreSetters;
 
 const App: React.FC = () => {
   console.log(store)
+  console.log(JSON.stringify(store));
+  console.log(Object.keys(store));
   // console.log(store.setMyField.isMobxAction);
   return (
     <div className="App">
-      <div>{store.myField || '--'}</div>
-      <input onChange={e => store.setMyField(e.target.value)} />
+      <input value={store.myField} onChange={e => store.setMyField(e.target.value)} />
     </div>
   );
 }

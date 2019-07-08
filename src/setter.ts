@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action } from 'mobx';
 
 const setterName = (s:string) => `set${s.charAt(0).toUpperCase() + s.slice(1)}`;
 
@@ -19,6 +19,7 @@ const setter:PropertyDecorator = function(target, name) {
   // TODO if name is a symbol
   Object.defineProperty(target, setterName(name.toString()), setterDescriptor);
 
+  // what gets written to object vs. _proto_?
   Object.defineProperty(target, '_$a', {
     configurable: true,
     enumerable: true,
