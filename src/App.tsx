@@ -1,4 +1,4 @@
-import { configure, observable } from 'mobx';
+import { configure, observable, IAction } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 import './App.css';
@@ -6,31 +6,24 @@ import setter from './setter';
 
 configure({enforceActions: "always"});
 
-class Store {
-  @observable @setter myField = '';
-  // @setter myField = '';
-
-  // @observable myField = '';
-  // @observable myField2 = '';
-  // @action setMyField2 = (v:any) => this.myField2 = v;
+type ISetter = (param:any) => void;
+type IStoreSetters = {
+  setMyField:IAction & ISetter
 }
 
-const store:any = new Store();
+class Store {
+  @observable @setter myField = '';
+}
+
+const store = new Store() as Store & IStoreSetters;
 
 const App: React.FC = () => {
-  // console.log(store)
-  console.log('rendering')
-
+  console.log(store)
+  // console.log(store.setMyField.isMobxAction);
   return (
     <div className="App">
-      <div>=</div>
       <div>{store.myField || '--'}</div>
-      <div>=</div>
-      <input onChange={e => {
-        store.setMyField(e.target.value);
-        // store.myField = e.target.value;
-        // console.log(store);
-      }} />
+      <input onChange={e => store.setMyField(e.target.value)} />
     </div>
   );
 }
