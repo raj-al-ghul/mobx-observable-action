@@ -3,12 +3,12 @@ import { action } from 'mobx';
 const setterName = (s:string) => `set${s.charAt(0).toUpperCase() + s.slice(1)}`;
 
 const setter:PropertyDecorator = function(target, name) {
-  console.log(target);
+  // console.log(target);
   const setterDescriptor: PropertyDescriptor = {
     configurable: true,
     enumerable: true, // why does console.log(store) not include property?
     value: action(function(v:any) {
-      console.log(target);
+      // console.log(target);
       //@ts-ignore
       // console.log(new target.constructor());
       //@ts-ignore
